@@ -9,5 +9,3 @@
 - To render a shape at a specific frame, we iterate through all animations that should currently be visible and squash them into one state
 
 - each state consists of different properties of a shape (e.g. color, height, width, location, etc.)
-
-
