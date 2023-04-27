@@ -1,43 +1,49 @@
-function drawStuff(c){
-    c.fillStyle = "green";
-    c.fillRect(10, 10, 150, 100);
+var canvasDimentions 
+var ctx;
+var myRect;
+var debugMode = true;
+var frame = 0;
+
+function setup() {
+    bg = color(30)
+    canvasDimentions = createVector(1920, 1080)
+    createCanvas(canvasDimentions.x, canvasDimentions.y);
+    ctx = $("#defaultCanvas0")[0].getContext('2d');
+    myRect = new Rectangle(100,100)
+    
 }
+
+var fps = 60
+function drawDebug(){
+    const tSize = 20
+    if(frameCount%Math.floor(fps/6) == 0) fps = frameRate()
+    push()
+    fill(0,255,0)
+    textSize(tSize)
+    text('FPS: ' + nfs(fps.toString(), 2,0).slice(0,-1),tSize, canvasDimentions.y - tSize)
+    pop()
+}
+
+function draw() {
+    background(bg);
+    drawDebug()
+    frame += 1
+    myRect.display(frame)
+}
+
 
 $(document).ready(function () {
 
-
-    var c = $("#canvas")[0].getContext('2d');
-    // code to resize the canvas to fill browser window dynamically
-    // window.addEventListener('resize', resizeCanvas, false);
-    // function resizeCanvas() {
-    //     canvas.width = window.innerWidth;
-    //     canvas.height = window.innerHeight; 
-    //     /**
-    //      * Your drawings need to be inside this function otherwise they will be reset when 
-    //      * you resize the browser window and the canvas goes will be cleared.
-    //      */
-    //     drawStuff(c); 
-    // }
-  
-    // resizeCanvas();
-    drawStuff(c)
-    
-
-    $( "#canvas" ).click(function() {
-        // Get the base64-encoded image data from canvas
-        var imageDataURL = $("#canvas")[0].toDataURL();
-
-        // Send the image data as JSON in the request body to the server
-        callAPI(
-            '/downloadImage',                   //route
-            'POST',                             //method
-            JSON.stringify({imageDataURL}),     //body
-            'Image downloaded succesfully',     //success
-            'Failed to download image: '        //fail
-        )
-
-        // window.open($("#canvas")[0].toDataURL(), "_blank")
-    });
+    // $( "#canvas" ).click(function() {
+    //     var imageDataURL = $("#canvas")[0].toDataURL();
+    //     callAPI(
+    //         '/downloadImage',                   //route
+    //         'POST',                             //method
+    //         JSON.stringify({imageDataURL}),     //body
+    //         'Image downloaded succesfully',     //success
+    //         'Failed to download image: '        //fail
+    //     )
+    // });
 
     $('#start').click(function (){
         alert('yeah')
@@ -59,9 +65,9 @@ $(document).ready(function () {
         )
     })
     $('#change_color').click(function(){
-        c.fillStyle = 'red'
-        c.fillRect(10, 10, 150, 100);
+        frame = 0
     })
+
 });
 
 

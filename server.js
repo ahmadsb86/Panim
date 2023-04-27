@@ -137,6 +137,7 @@ function stitchImagesToVideo(directory, outputVideoPath) {
 }
 
 
+
 // const videoOptions = {
 //   fps: 60,
 //   loop: 1/60, // seconds
